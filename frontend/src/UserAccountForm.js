@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const UserAccountForm = () => {
     const [formData, setFormData] = useState({
@@ -25,7 +27,7 @@ const UserAccountForm = () => {
 
             const response = await axios.post('https://api.example.com/create-account', formData);
 
-            if(response.status==200){
+            if(response.status===200){
                 setResponseMessege('Conta criada com sucesso!');
             }
             else{
@@ -41,38 +43,41 @@ const UserAccountForm = () => {
     return (
         <div ClassName="user-account-form">
             <h3>Crie sua conta de usuário</h3>
-            <form onSubmit="">
+            <form onSubmit={handleSubmit} className="form-group">
                 <div>
                     <label>Nome:</label>
                     <input
+                        className="form-control"
                         type="text"
                         name="username"
-                        value=""
-                        onChange=""
+                        value={formData.username}
+                        onChange={handleChange}
                         required
                     />
                 </div>
                 <div>
                     <label>Email:</label>
                     <input
+                        className="form-control"
                         type="email"
                         name="email"
-                        value=""
-                        onChange=""
+                        value={formData.email}
+                        onChange={handleChange}
                         required
                     />
                 </div>
                 <div>
                     <label>Senha:</label>
                     <input
+                        className="form-control"
                         type="password"
                         name="password"
-                        value=""
-                        onChange=""
+                        value={formData.password}
+                        onChange={handleChange}
                         required
                     />
                 </div>
-                <button type="submit">Create Account</button>
+                <button type="submit" className="btn btn-primary btn-block mt-3">Create Account</button>
             </form>
             <p></p>
         </div>

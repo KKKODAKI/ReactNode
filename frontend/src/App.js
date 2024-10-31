@@ -1,26 +1,66 @@
 import React, { useState } from "react";
 import './App.css';
 import UserAccountForm from './UserAccountForm';
-import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('landing');
+
+  const handleNavClick = (page) => {
+    setCurrentPage(page);
+  }
+
   return (
-    <div>
-      <header class="d-block .bg-secondary">
-        <div>
-          <h3>Landing Page</h3>
+    <div className="App">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a className="navbar-brand" href="#">Landing Page</a>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <button className="nav-link btn" onClick={()=> handleNavClick('createAccount')}>Criar conta</button>
+            </li>
+            <li className="nav-item">
+              <button className="nav-link btn" onClick={()=> handleNavClick('login')}>Login</button>
+            </li>
+            <li className="nav-item">
+              <button className="nav-link btn" onClick={()=> handleNavClick('logout')}>Sair</button>
+            </li>
+          </ul>
         </div>
-        <div class="mx-2">
-          <a>Criar Conta</a>
-          <a>Login</a>
-          <a>Sair</a>
-        </div>
-      </header>
-      <div>
-        <UserAccountForm/>
+      </nav>
+      {/*Conteúdo Principal*/}
+      <div className="container text-center mt-5">
+        {currentPage === 'landing' && (
+          <div className="mt-4">
+            <h1 className="display-4">Segundo Bimestre</h1>
+          </div>  
+        )} 
+
+        {/*Criar conta*/}
+        {currentPage === 'createAccount' && (
+          <div className="mt-4">
+            <div>
+              <UserAccountForm/>
+            </div>
+          </div>
+        )}
+
+        {/*Login*/}
+        {currentPage === 'login' && (
+          <div className="mt-4">
+            <div>Adicionar o login</div>
+          </div>
+        )}
+
+        {/*Sair*/}
+        {currentPage === 'logout' && (
+          <div className="mt-4">
+            <div>Adicionar o Sair</div>
+          </div>
+        )}
       </div>
     </div>
-  );
+  )
 }
 
 export default App;
