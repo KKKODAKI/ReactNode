@@ -28,58 +28,60 @@ const UserAccountForm = () => {
             const response = await axios.post('https://api.example.com/create-account', formData);
 
             if(response.status===200){
-                setResponseMessege('Conta criada com sucesso!');
+                setResponseMessage('Conta criada com sucesso!');
             }
             else{
-                setResponseMessege('Erro ao criar a conta de usuário.');
+                setResponseMessage('Erro ao criar a conta de usuário.');
             }
         } catch (error) {
-            setResponseMessege('Falha ao conectar ao servidor.');
+            setResponseMessage('Falha ao conectar ao servidor.');
         }
     };
 
-    const [responseMessege, setResponseMessege] = useState('');
+    const [responseMessage, setResponseMessage] = useState('');
 
     return (
-        <div ClassName="user-account-form">
-            <h3>Crie sua conta de usuário</h3>
-            <form onSubmit={handleSubmit} className="form-group">
-                <div>
-                    <label>Nome:</label>
-                    <input
-                        className="form-control"
-                        type="text"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        className="form-control"
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Senha:</label>
-                    <input
-                        className="form-control"
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary btn-block mt-3">Create Account</button>
-            </form>
-            <p></p>
+        <div className="container d-flex justify-content-center align-items-center">
+            <div className="card p-4 shadow-sm">
+                <h3 className="text-center mb-4">Crie sua conta de usuário</h3>
+                <form onSubmit={handleSubmit} className="form-group">
+                    <div className="mb-3">
+                        <label className="fw-bold text-start d-block">Nome:</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="fw-bold text-start d-block">Email:</label>
+                        <input
+                            className="form-control"
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="fw-bold text-start d-block">Senha:</label>
+                        <input
+                            className="form-control"
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-secondary btn-block mt-3">Create Account</button>
+                </form>
+                {responseMessage && <p className="mt-3 text-center">{responseMessage}</p>}
+            </div>
         </div>
     )
 };  

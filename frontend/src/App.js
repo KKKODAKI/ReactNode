@@ -12,8 +12,8 @@ function App() {
 
   return (
     <div className="App">
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">Landing Page</a>
+      <nav className="navbar navbar-expand-lg navbar-light bg-secondary bg-gradient">
+        <a className="navbar-brand ms-2 text-dark" href="#">Landing Page</a>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
@@ -23,7 +23,7 @@ function App() {
               <button className="nav-link btn" onClick={()=> handleNavClick('login')}>Login</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn" onClick={()=> handleNavClick('logout')}>Sair</button>
+              <button className="nav-link btn me-2" onClick={()=> handleNavClick('logout')}>Sair</button>
             </li>
           </ul>
         </div>
