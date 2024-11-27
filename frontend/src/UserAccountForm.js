@@ -1,36 +1,29 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 const UserAccountForm = () => {
     const [formData, setFormData] = useState({
-        username: '',
+        data_nascimento: '',
         email: '',
         password: '',
     });
 
     const handleChange = (e) => {
-        console.log('Entrou aqui')
         const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value,
-        })
+        });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            console.log('Salvando dados');
-
-            const response = await axios.post('https://api.example.com/create-account', formData);
-
-            if(response.status===200){
+            const response = await axios.post('http://localhost:8000/users/novouser/', formData); 
+            if (response.status === 200) {
                 setResponseMessage('Conta criada com sucesso!');
-            }
-            else{
+            } else {
                 setResponseMessage('Erro ao criar a conta de usuário.');
             }
         } catch (error) {
@@ -46,14 +39,14 @@ const UserAccountForm = () => {
                 <h3 className="text-center mb-4">Crie sua conta de usuário</h3>
                 <form onSubmit={handleSubmit} className="form-group">
                     <div className="mb-3">
-                        <label className="fw-bold text-start d-block">Nome:</label>
-                        <input
+                        <label className="fw-bold text-start d-block">Data Nascimento:</label>
+                        <input 
                             className="form-control"
-                            type="text"
-                            name="username"
-                            value={formData.username}
-                            onChange={handleChange}
-                            required
+                            type="text" 
+                            name="data_nasc" 
+                            value={formData.data_nasc} 
+                            onChange={handleChange} 
+                            required 
                         />
                     </div>
                     <div className="mb-3">
@@ -83,7 +76,7 @@ const UserAccountForm = () => {
                 {responseMessage && <p className="mt-3 text-center">{responseMessage}</p>}
             </div>
         </div>
-    )
-};  
+    );
+};
 
 export default UserAccountForm;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import './App.css';
 import UserAccountForm from './UserAccountForm';
+import ProductDataForm from './ProductDataForm';
+import UserLogin from './UserLogin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -9,11 +10,10 @@ function App() {
   const handleNavClick = (page) => {
     setCurrentPage(page);
   }
-
   return (
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-light bg-secondary bg-gradient">
-        <a className="navbar-brand ms-2 text-dark" href="#">Landing Page</a>
+        <a className="navbar-brand ms-2 text-dark" href="#" onClick={()=> handleNavClick('landing')}>Landing Page</a>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
@@ -24,6 +24,9 @@ function App() {
             </li>
             <li className="nav-item">
               <button className="nav-link btn me-2" onClick={()=> handleNavClick('logout')}>Sair</button>
+            </li>
+            <li className='nav-item'>
+              <button className='nav-link btn' onClick={() => handleNavClick('products')}>Produtos</button>
             </li>
           </ul>
         </div>
@@ -48,7 +51,9 @@ function App() {
         {/*Login*/}
         {currentPage === 'login' && (
           <div className="mt-4">
-            <div>Adicionar o login</div>
+            <div>
+              <UserLogin/>
+            </div>
           </div>
         )}
 
@@ -56,6 +61,15 @@ function App() {
         {currentPage === 'logout' && (
           <div className="mt-4">
             <div>Adicionar o Sair</div>
+          </div>
+        )}
+
+        {/*Produtos*/}
+        {currentPage === 'products' && (
+          <div className="mt-4">
+            <div>
+              <ProductDataForm/>
+              </div>
           </div>
         )}
       </div>
