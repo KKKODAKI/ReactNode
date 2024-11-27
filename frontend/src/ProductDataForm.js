@@ -90,9 +90,6 @@ const ProductDataForm = () => {
                         />
                     </div>
                     <button type="submit" className="btn btn-success btn-block mt-3 mx-1" onClick={handleSave}>Salvar</button>
-                    {/*<button type="submit" className="btn btn-primary btn-block mt-3 mx-1" onClick={handleUpdate}>Atualizar</button>*/}
-                    {/*<button type="submit" className="btn btn-danger btn-block mt-3 mx-1" onClick={handleDelete}>Deletar</button>*/}
-                    {/*<button type="submit" className="btn btn-warning btn-block mt-3 mx-1" onClick={handleSearch}>Buscar</button>*/}
                     <button type="submit" className="btn btn-secondary btn-block mt-3 mx-1" onClick={handleClear}>Limpar</button>
                 </form>
                 {responseMessage && <div className='alert alert-info mt-3'>{responseMessage}</div>}
