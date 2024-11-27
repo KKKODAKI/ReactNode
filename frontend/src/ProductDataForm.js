@@ -5,9 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const ProductDataForm = () => {
     const [formData, setFormData] = useState({
         id: '',
-        produto: '',
-        categoria: '',
-        preco: ''
+        nome: '',
+        descricao: '',
+        preco: '',
+        estoque:''
     });
 
     const [responseMessage, setResponseMessage] = useState('');
@@ -25,7 +26,7 @@ const ProductDataForm = () => {
     const handleSave = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/products', formData);
+            const response = await axios.post('http://localhost:8000/products/novoproduto', formData);
             setResponseMessage(response.data.message);
             handleClear();
         } catch (error) {
@@ -35,22 +36,12 @@ const ProductDataForm = () => {
 
     const handleClear = () => {
         setFormData({
-            id: '',
-            produto: '',
-            categoria: '',
-            preco: ''
+            nome: '',
+            descricao: '',
+            preco: '',
+            estoque:''
         });
         setResponseMessage('');
-    };
-
-    const handleSearch = async () => {
-        try {
-            const response = await axios.get(`/api/products/${formData.id}`);
-            setFormData(response.data);
-            setResponseMessage('');
-        } catch (error) {
-            setResponseMessage('Produto não encontrado');
-        }
     };
 
     return (
@@ -59,31 +50,21 @@ const ProductDataForm = () => {
                 <h3>Cadastro de Produtos</h3>
                 <form className="form-group" onSubmit={handleSave}>
                     <div className="mb-3">
-                        <label className="fw-bold text-center d-block">ID:</label>
-                        <input
-                            type='text'
-                            name='id'
-                            value={formData.id}
-                            onChange={handleChange}
-                            className='form-control'
-                        />
-                    </div>
-                    <div className="mb-3">
                         <label className="fw-bold text-center d-block">Produto:</label>
                         <input
                             type='text'
-                            name='produto'
-                            value={formData.produto}
+                            name='nome'
+                            value={formData.nome}
                             onChange={handleChange}
                             className='form-control'
                         />
                     </div>
                     <div className="mb-3">
-                        <label className="fw-bold text-center d-block">Categoria:</label>
+                        <label className="fw-bold text-center d-block">Descrição:</label>
                         <input
                             type='text'
-                            name='categoria'
-                            value={formData.categoria}
+                            name='descricao'
+                            value={formData.descricao}
                             onChange={handleChange}
                             className='form-control'
                         />
@@ -98,9 +79,21 @@ const ProductDataForm = () => {
                             className='form-control'
                         />
                     </div>
+                    <div className="mb-3">
+                        <label className="fw-bold text-center d-block">Estoque:</label>
+                        <input
+                            type='text'
+                            name='estoque'
+                            value={formData.estoque}
+                            onChange={handleChange}
+                            className='form-control'
+                        />
+                    </div>
                     <button type="submit" className="btn btn-success btn-block mt-3 mx-1" onClick={handleSave}>Salvar</button>
-                    <button type="submit" className="btn btn-danger btn-block mt-3 mx-1" onClick={handleClear}>Limpar</button>
-                    <button type="submit" className="btn btn-warning btn-block mt-3 mx-1" onClick={handleSearch}>Buscar</button>
+                    {/*<button type="submit" className="btn btn-primary btn-block mt-3 mx-1" onClick={handleUpdate}>Atualizar</button>*/}
+                    {/*<button type="submit" className="btn btn-danger btn-block mt-3 mx-1" onClick={handleDelete}>Deletar</button>*/}
+                    {/*<button type="submit" className="btn btn-warning btn-block mt-3 mx-1" onClick={handleSearch}>Buscar</button>*/}
+                    <button type="submit" className="btn btn-secondary btn-block mt-3 mx-1" onClick={handleClear}>Limpar</button>
                 </form>
                 {responseMessage && <div className='alert alert-info mt-3'>{responseMessage}</div>}
             </div>
