@@ -1,6 +1,7 @@
 // routes/carts.js
 var express = require('express');
 var router = express.Router();
+const auth = require('../auth');
 
 // Implementar as dependencias para o funcionamento da classe Cart
 const db = require('../models');

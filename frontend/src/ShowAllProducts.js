@@ -22,19 +22,17 @@ const ShowAllProducts = () => {
     return (
         <div className="container mt-5">
             <h3 className="text-center mb-4">Todos os Produtos</h3>
-            {products.length > 0 ? (
-                <ul className="list-group">
+                <ul className="list-group mx-5">
                     {products.map(product => (
-                        <li key={product.id} className="list-group-item">
-                            <strong>ID:</strong> {product.id} | <strong>Nome:</strong> {product.nome} | <strong>Descrição:</strong> {product.descricao} | <strong>Preço:</strong> R$ {product.preco} | <strong>Estoque:</strong> {product.estoque}
+                        <li key={product.id} className="list-group-item text-center my-1 border border-dark rounded">
+                            <strong>ID:</strong> {product.id}<br/>
+                            <strong>Nome:</strong> {product.nome}<br/>
+                            <strong>Descrição:</strong> {product.descricao}<br/>
+                            <strong>Preço:</strong> R$ {product.preco}<br/>
+                            <strong>Estoque:</strong> {product.estoque}
                         </li>
                     ))}
-                </ul>
-            ) : (
-                <div className="alert alert-danger mt-3">
-                    Nenhum produto encontrado ou ocorreu um erro ao buscar os produtos.
-                </div>
-            )}
+                </ul>          
         </div>
     );
 };

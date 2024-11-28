@@ -2,6 +2,7 @@ var express = require('express'); // Para as rotas
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 // Importando o Sequelize e o modelo User
 var sequelize = require('./models').sequelize;
@@ -21,6 +22,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
+
 app.use('/', indexRouter); // Cria a rota app/
 app.use('/users', usersRouter); // Cria a rota app/users
 app.use('/products', productsRouter); // Cria a rota app/products
@@ -39,8 +44,8 @@ if (process.env.NODE_ENV !== 'production') {
         });
 }
 
-// Inicar o servidos com o app.js na porta 3000
-var port = 3000;
+// Inicar o servidos com o app.js na porta 8000
+var port = 8000;
 app.listen(port,()=>{
     console.log(`Aplicação rodando na porta ${port}`)
 });

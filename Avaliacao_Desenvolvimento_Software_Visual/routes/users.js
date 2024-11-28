@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const auth = require('../auth'); // Carregar os objetos do auth.js
 
 // Implementar as dependencias para o funcionamento da classe User
 const db = require('../models') // Carregando o bando de dados
@@ -29,7 +30,7 @@ router.post('/novouser', async(req,res)=>{
 });
 
 // Rota para retornar todos os usuários
-router.get('/allusers', async(req,res)=>{
+router.get('/allusers', auth.verifyToken, async(req,res)=>{
   userController.findAllUsers(req,res);
 });
 

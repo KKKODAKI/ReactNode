@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserAccountForm from './UserAccountForm';
 import ProductDataForm from './ProductDataForm';
 import ShowAllProducts from './ShowAllProducts';
@@ -10,29 +10,51 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
   const [showMenu, setShowMenu] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleNavClick = (page) => {
-    setCurrentPage(page);
+    if (page === 'createProducts' && !isLoggedIn) {
+      setCurrentPage('login');
+    } else {
+      setCurrentPage(page);
+    }
   }
 
   const handleMenuClick = (option) => {
-    switch (option) {
-      case 'createProducts':
-        setCurrentPage('createProducts');
-        break;
-      case 'showAllProducts':
-        setCurrentPage('showAllProducts');
-        break;
-      case 'deleteProductById':
-        setCurrentPage('deleteProductById');
-        break;
-      case 'updateProductById':
-        setCurrentPage('updateProductById');
-        break;
-      default:
-        break;
+    if (!isLoggedIn && (option === 'createProducts' || option === 'showAllProducts'  || option === 'deleteProductById' || option === 'updateProductById')) {
+      setCurrentPage('login');
+    } else {
+      switch (option) {
+        case 'createProducts':
+          setCurrentPage('createProducts');
+          break;
+        case 'showAllProducts':
+          setCurrentPage('showAllProducts');
+          break;
+        case 'deleteProductById':
+          setCurrentPage('deleteProductById');
+          break;
+        case 'updateProductById':
+          setCurrentPage('updateProductById');
+          break;
+        default:
+          break;
+      }
     }
     setShowMenu(false);
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    setCurrentPage('landing');
   }
 
   return (
@@ -48,7 +70,7 @@ function App() {
               <button className="nav-link btn" onClick={() => handleNavClick('login')}>Login</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link btn me-2" onClick={() => handleNavClick('logout')}>Sair</button>
+              <button className="nav-link btn me-2" onClick={handleLogout}>Sair</button>
             </li>
             <li className='nav-item'>
               <button className='nav-link btn' onClick={() => setShowMenu(!showMenu)}>Produtos</button>
@@ -101,7 +123,7 @@ function App() {
         )}
 
         {/* Criar Produtos */}
-        {currentPage === 'createProducts' && (
+        {currentPage === 'createProducts' && isLoggedIn && (
           <div className="mt-4">
             <div>
               <ProductDataForm />
@@ -119,7 +141,7 @@ function App() {
         )}
 
         {/* Deletar produto por id */}
-        {currentPage === 'deleteProductById' && (
+        {currentPage === 'deleteProductById' && isLoggedIn && (
           <div className="mt-4">
             <div>
               <DeleteProductById />
@@ -128,7 +150,7 @@ function App() {
         )}
 
         {/* Atualizar produto por id */}
-        {currentPage === 'updateProductById' && (
+        {currentPage === 'updateProductById' && isLoggedIn && (
           <div className="mt-4">
             <div>
               <UpdateProductByID />
